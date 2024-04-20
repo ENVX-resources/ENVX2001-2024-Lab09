@@ -1,0 +1,6 @@
+/.quarto/
+.Rproj.user
+*_files/
+_site/
+/.luarc.json
+_solution/

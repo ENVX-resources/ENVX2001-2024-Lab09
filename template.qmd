@@ -1,0 +1,156 @@
+---
+title: Lab 01
+---
+
+## Welcome
+
+:::{.callout-tip}
+## Learning outcomes
+
+Cat ipsum dolor sit amet, rub face on everything i love cuddles but pretend not to be evil:
+
+- Be a nyan cat, feel great about it, be annoying 24/7 poop rainbows in litter box all day.
+- Licks paws jump off balcony, onto stranger's head cat mojo to pet a cat, rub its belly, endure blood and agony, quietly weep.
+- Kitten is playing with dead mouse. Thug cat cats are the world cat snacks. 
+- If human is on laptop sit on the keyboard.
+- Cick left leg for ninety minutes, still dirty lick ears lick paws spit up on light gray carpet.
+:::
+
+## Prerequisites
+
+### Software
+
+Cat ipsum dolor sit amet, has closed eyes but still sees you stuff and things but poop on couch. I rule on my back you rub my tummy i bite you hard put butt in owner's face for lick face hiss at owner, pee a lot, and meow repeatedly scratch at fence purrrrrr eat muffins and poutine until owner comes back meow meow. 
+
+Shove bum in owner's face like camera lens lick butt give attitude steal the warm chair right after you get up make plans to dominate world and then take a nap.
+
+### Readings
+
+If it fits, i sits.
+
+- [Cat ipsum dolor sit amet](http://www.catipsum.com/). I cry and cry and cry unless you pet me, and then maybe i cry just for fun purr as loud as possible, be the most annoying cat that you can, and, knock everything off the table.
+- [Github documentation](https://docs.github.com/en). Help for anyone interested in using Github.
+
+### Download 
+
+Download cat image: 
+{{< downloadthis images/mikhail-vasilyev-NodtnCsLdTE-unsplash.jpg dname="cat" label="Download the cat image" type="danger" >}}
+
+## Exercise 1
+
+Pet a cat, rub its belly, endure blood and agony, quietly weep, keep rubbing belly $\sigma^2$ with love:
+
+$$ \sigma^2 = \frac{\sum_{i=1}^n (x_i - \mu)^2}{n} $$ {#eq-a}
+
+
+Kitty time, cuddle, no cuddle, cuddle love scratch scratch, but instead of drinking water from the cat bowl, make sure to steal water from the toilet $s^2$:
+
+$$ s^2 = \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n-1} $$ {#eq-b}
+
+a. Stretch making sure that fluff gets into the owner's eyes walk on a keyboard?
+b. Meow meow, i tell my human, so i cat mojo. 
+
+```{r}
+# R code goes here
+lm(speed ~ dist, data = cars)
+```
+
+### Question 1 {style="color:#e64626;"}
+
+a. Attack feet behind the couch, destroy couch! Flop over, give attitude, hide when guests come over?
+b. Hopped up on goofballs. Hunt anything that moves. All of a sudden... go crazy?
+
+
+::: {.content-visible when-profile="solution"}
+
+### Solution 1 {style="color:green;"}
+
+This is a solution box that appears when the `solution` profile is active. Under no profile or the `exercise` profile, this text is hidden.
+
+You muse encase solutions in a `content-visible` div with the `when-profile` attribute set to `solution`. This will hide the solution content when the `exercise` profile is active:
+
+```
+::: {.content-visible when-profile="solution"}
+(your hidden content here)
+:::
+```
+
+**To switch to the `exercise` profile open `_quarto.yml` and uncomment `- exercise` in the default profile section:**
+
+```yaml
+profiles:
+  default:
+    # - exercise
+    - solution
+```
+
+This will hide the solution and show the exercise content. There is no need to hide the solution line as only one of the profiles will be active at a time (so if exercise is active, solution will not be rendered).
+
+-- End of Solution 1 --
+:::
+
+
+## Exercise 2
+
+Yet sleep on my human's head. Ooooh feather moving feather! weigh eight pounds but take up a full-size bed or attack dog, run away and pretend to be victim. Hit you unexpectedly chase ball of string hack up furballs or get poop stuck in paws jumping out of litter box and run around the house. 
+
+Scream meowing and smearing hot cat mud all over but ask to go outside and ask to come inside and ask to go outside and ask to come inside, for murr i hate humans they are so annoying need to check on human, have not seen in an hour might be dead oh look, human is alive, hiss at human, feed me.
+
+
+![The University of Sydney logo in black with a specified width.](images/usydlogo.png){#fig-usydlogo width=300}
+
+
+## Exercise 3
+
+Really likes hummus there's a forty year old lady there let us feast. Kitty loves pigs sleep all day whilst slave is at work, play all night whilst slave is sleeping, scratch at the door then walk away for give attitude rub against owner because nose is wet, and murr i hate humans they are so annoying. Cat slap dog in face lick face hiss at owner, pee a lot, and meow repeatedly scratch at fence purrrrrr eat muffins and poutine until owner comes back. 
+
+```{r}
+#| warning: false
+#| code-fold: true
+#| label: fig-main-margin-cap
+#| fig-cap: "A figure with a longer caption. The figure appears in the main column, but the caption is placed in the margin if using HTML output. In the PDF output, the caption remains in the main column."
+
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length,
+                 y = Sepal.Width,
+                 colour = Species)) +
+  geom_point() +
+  theme_minimal()
+
+```
+
+:::{.callout-tip}
+## Step 1: Sit on human
+
+Whatever lick plastic bags am in trouble, roll over, too cute for human to get mad or claw at curtains stretch and yawn nibble on tuna ignore human bite human hand yet trip owner up in kitchen i want food. 
+:::
+
+:::{.callout-tip collapse="true"}
+## Step 2: Purrrr
+
+Walk on keyboard when in doubt, wash sleep on dog bed, force dog to sleep on floor so sitting in a box yet i can haz so fall asleep on the washing machine get scared by sudden appearance of cucumber.
+:::
+
+:::{.callout-tip collapse="true"}
+## Step 3: Show belly
+
+1. Poop in litter box, scratch the walls leave hair everywhere crash against wall but walk away like nothing happened.
+2. Sleep all day whilst slave is at work, play all night whilst slave is sleeping. 
+3. Get suspicious of own shadow then go play with toilette paper tweeting a baseball.
+:::
+
+
+
+## Review
+
+Meow and walk away find something else more interesting, and meow for food, then when human fills food dish, take a few bites of food and continue meowing bird bird bird bird bird bird human why take bird out i could have eaten that, or cat slap dog in face jump on counter removed by human jump on counter again removed by human meow before jumping on counter this time to let the human know am coming back yet sleep.
+ 
+:::{.callout-warning}
+Pushed the mug off the table pretend you want to go out but then don't love blinks and purr purr purr purr yawn carefully drink from water glass and then spill it everywhere and proceed to lick the puddle cat slap dog in face snob you for another person. 
+:::
+
+## Thanks!
+
+### Attribution
+
+This lab was developed using resources that are available under a [Creative Commons Attribution 4.0 International license](http://creativecommons.org/licenses/by/4.0/), made available on the [SOLES Open Educational Resources repository](https://github.com/usyd-soles-edu/).

@@ -1,0 +1,68 @@
+% packages
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{fontspec}
+\usepackage{titlesec}
+% \usepackage{lmodern}
+% \usepackage{cmbright}
+\usepackage{fvextra}
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+\DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+% use sans serif font
+% \renewcommand{\familydefault}{\sfdefault}
+
+%% colours
+\definecolor{primary}{HTML}{FCEDE2}
+\definecolor{dark}{HTML}{330033}
+
+%% fontsize
+\addtokomafont{subsubsection}{\fontsize{10pt}{12.833pt}\selectfont}
+
+
+
+%% Add the border
+\AddToShipoutPicture{% 
+    \AtPageLowerLeft{% 
+        \put(\LenToUnit{\dimexpr\paperwidth-2cm},0){% 
+            \color{primary}\rule{2cm}{\LenToUnit\paperheight}%
+          }%
+     }%
+     % logo
+    \AtPageLowerLeft{% start the bar at the bottom right of the page
+        \put(\LenToUnit{\dimexpr\paperwidth-1.75cm},\paperheight-2.5cm){% move it to the top right
+            \color{primary}\includegraphics[width=1.5cm]{_extensions/soles-assignment/assets/images/usydlogo.png}
+          }%
+     }%
+}
+
+%% Style the page number
+\fancypagestyle{usyd}{
+  \fancyhf{}
+  \renewcommand\headrulewidth{0pt}
+  \fancyfoot[R]{\thepage}
+  \fancyfootoffset{3.5cm}
+}
+\setlength{\footskip}{20pt}
+
+%% style the chapter/section fonts
+\chapterfont{\color{dark}\fontsize{20}{16.8}\selectfont}
+\sectionfont{\color{dark}\fontsize{20}{16.8}\selectfont}
+\subsectionfont{\color{dark}\fontsize{14}{16.8}\selectfont}
+\titleformat{\subsection}
+  {\sffamily\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
+  
+% left align title
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  {\sffamily\huge\textbf{\MakeUppercase{\@title}}} \vspace{0.3cm} \newline
+  {\Large {\@subtitle}} \newline
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother

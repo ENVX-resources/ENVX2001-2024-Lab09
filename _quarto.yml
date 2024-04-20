@@ -1,0 +1,31 @@
+project:
+  type: website
+  # post-render:
+    # - _scripts/post-render.R
+
+# dates (change these if you need to e.g. for a new semester)
+date: today
+date-format: "[Semester 1,] YYYY"
+
+
+
+format:
+  soles-assignment-html:
+    embed-resources: false
+    title-block-banner: "#FCEDE2"
+    title-block-banner-color: "#000"
+    reference-location: margin
+    citation-location: margin
+  soles-assignment-pdf:
+    pdf-engine: lualatex
+    keep-tex: false
+    toc: true
+
+
+execute:
+  freeze: auto
+
+profile:
+  default: 
+    # - exercise
+    - solution
