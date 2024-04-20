@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "template.html",
+    "href": "template.html",
+    "title": "Lab 01",
+    "section": "",
+    "text": "Learning outcomes\n\n\n\nCat ipsum dolor sit amet, rub face on everything i love cuddles but pretend not to be evil:\n\nBe a nyan cat, feel great about it, be annoying 24/7 poop rainbows in litter box all day.\nLicks paws jump off balcony, onto stranger’s head cat mojo to pet a cat, rub its belly, endure blood and agony, quietly weep.\nKitten is playing with dead mouse. Thug cat cats are the world cat snacks.\nIf human is on laptop sit on the keyboard.\nCick left leg for ninety minutes, still dirty lick ears lick paws spit up on light gray carpet."
+  },
+  {
+    "objectID": "template.html#welcome",
+    "href": "template.html#welcome",
+    "title": "Lab 01",
+    "section": "",
+    "text": "Learning outcomes\n\n\n\nCat ipsum dolor sit amet, rub face on everything i love cuddles but pretend not to be evil:\n\nBe a nyan cat, feel great about it, be annoying 24/7 poop rainbows in litter box all day.\nLicks paws jump off balcony, onto stranger’s head cat mojo to pet a cat, rub its belly, endure blood and agony, quietly weep.\nKitten is playing with dead mouse. Thug cat cats are the world cat snacks.\nIf human is on laptop sit on the keyboard.\nCick left leg for ninety minutes, still dirty lick ears lick paws spit up on light gray carpet."
+  },
+  {
+    "objectID": "template.html#prerequisites",
+    "href": "template.html#prerequisites",
+    "title": "Lab 01",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nSoftware\nCat ipsum dolor sit amet, has closed eyes but still sees you stuff and things but poop on couch. I rule on my back you rub my tummy i bite you hard put butt in owner’s face for lick face hiss at owner, pee a lot, and meow repeatedly scratch at fence purrrrrr eat muffins and poutine until owner comes back meow meow.\nShove bum in owner’s face like camera lens lick butt give attitude steal the warm chair right after you get up make plans to dominate world and then take a nap.\n\n\nReadings\nIf it fits, i sits.\n\nCat ipsum dolor sit amet. I cry and cry and cry unless you pet me, and then maybe i cry just for fun purr as loud as possible, be the most annoying cat that you can, and, knock everything off the table.\nGithub documentation. Help for anyone interested in using Github.\n\n\n\nDownload\nDownload cat image:\n Download the cat image"
+  },
+  {
+    "objectID": "template.html#exercise-1",
+    "href": "template.html#exercise-1",
+    "title": "Lab 01",
+    "section": "Exercise 1",
+    "text": "Exercise 1\nPet a cat, rub its belly, endure blood and agony, quietly weep, keep rubbing belly \\sigma^2 with love:\n \\sigma^2 = \\frac{\\sum_{i=1}^n (x_i - \\mu)^2}{n}  \\tag{1}\nKitty time, cuddle, no cuddle, cuddle love scratch scratch, but instead of drinking water from the cat bowl, make sure to steal water from the toilet s^2:\n s^2 = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})^2}{n-1}  \\tag{2}\n\nStretch making sure that fluff gets into the owner’s eyes walk on a keyboard?\nMeow meow, i tell my human, so i cat mojo.\n\n\n# R code goes here\nlm(speed ~ dist, data = cars)\n\n\nCall:\nlm(formula = speed ~ dist, data = cars)\n\nCoefficients:\n(Intercept)         dist  \n     8.2839       0.1656  \n\n\n\nQuestion 1\n\nAttack feet behind the couch, destroy couch! Flop over, give attitude, hide when guests come over?\nHopped up on goofballs. Hunt anything that moves. All of a sudden… go crazy?\n\n\n\nSolution 1\nThis is a solution box that appears when the solution profile is active. Under no profile or the exercise profile, this text is hidden.\nYou muse encase solutions in a content-visible div with the when-profile attribute set to solution. This will hide the solution content when the exercise profile is active:\n::: {.content-visible when-profile=\"solution\"}\n(your hidden content here)\n:::\nTo switch to the exercise profile open _quarto.yml and uncomment - exercise in the default profile section:\nprofiles:\n  default:\n    # - exercise\n    - solution\nThis will hide the solution and show the exercise content. There is no need to hide the solution line as only one of the profiles will be active at a time (so if exercise is active, solution will not be rendered).\n– End of Solution 1 –"
+  },
+  {
+    "objectID": "template.html#exercise-2",
+    "href": "template.html#exercise-2",
+    "title": "Lab 01",
+    "section": "Exercise 2",
+    "text": "Exercise 2\nYet sleep on my human’s head. Ooooh feather moving feather! weigh eight pounds but take up a full-size bed or attack dog, run away and pretend to be victim. Hit you unexpectedly chase ball of string hack up furballs or get poop stuck in paws jumping out of litter box and run around the house.\nScream meowing and smearing hot cat mud all over but ask to go outside and ask to come inside and ask to go outside and ask to come inside, for murr i hate humans they are so annoying need to check on human, have not seen in an hour might be dead oh look, human is alive, hiss at human, feed me.\n\n\n\n\n\n\nFigure 1: The University of Sydney logo in black with a specified width."
+  },
+  {
+    "objectID": "template.html#exercise-3",
+    "href": "template.html#exercise-3",
+    "title": "Lab 01",
+    "section": "Exercise 3",
+    "text": "Exercise 3\nReally likes hummus there’s a forty year old lady there let us feast. Kitty loves pigs sleep all day whilst slave is at work, play all night whilst slave is sleeping, scratch at the door then walk away for give attitude rub against owner because nose is wet, and murr i hate humans they are so annoying. Cat slap dog in face lick face hiss at owner, pee a lot, and meow repeatedly scratch at fence purrrrrr eat muffins and poutine until owner comes back.\n\n\nShow the code\nlibrary(ggplot2)\nggplot(iris, aes(x = Sepal.Length,\n                 y = Sepal.Width,\n                 colour = Species)) +\n  geom_point() +\n  theme_minimal()\n\n\n\n\n\n\n\n\nFigure 2: A figure with a longer caption. The figure appears in the main column, but the caption is placed in the margin if using HTML output. In the PDF output, the caption remains in the main column.\n\n\n\n\n\n\n\n\n\n\n\nStep 1: Sit on human\n\n\n\nWhatever lick plastic bags am in trouble, roll over, too cute for human to get mad or claw at curtains stretch and yawn nibble on tuna ignore human bite human hand yet trip owner up in kitchen i want food.\n\n\n\n\n\n\n\n\nStep 2: Purrrr\n\n\n\n\n\nWalk on keyboard when in doubt, wash sleep on dog bed, force dog to sleep on floor so sitting in a box yet i can haz so fall asleep on the washing machine get scared by sudden appearance of cucumber.\n\n\n\n\n\n\n\n\n\nStep 3: Show belly\n\n\n\n\n\n\nPoop in litter box, scratch the walls leave hair everywhere crash against wall but walk away like nothing happened.\nSleep all day whilst slave is at work, play all night whilst slave is sleeping.\nGet suspicious of own shadow then go play with toilette paper tweeting a baseball."
+  },
+  {
+    "objectID": "template.html#review",
+    "href": "template.html#review",
+    "title": "Lab 01",
+    "section": "Review",
+    "text": "Review\nMeow and walk away find something else more interesting, and meow for food, then when human fills food dish, take a few bites of food and continue meowing bird bird bird bird bird bird human why take bird out i could have eaten that, or cat slap dog in face jump on counter removed by human jump on counter again removed by human meow before jumping on counter this time to let the human know am coming back yet sleep.\n\n\n\n\n\n\nWarning\n\n\n\nPushed the mug off the table pretend you want to go out but then don’t love blinks and purr purr purr purr yawn carefully drink from water glass and then spill it everywhere and proceed to lick the puddle cat slap dog in face snob you for another person."
+  },
+  {
+    "objectID": "template.html#thanks",
+    "href": "template.html#thanks",
+    "title": "Lab 01",
+    "section": "Thanks!",
+    "text": "Thanks!\n\nAttribution\nThis lab was developed using resources that are available under a Creative Commons Attribution 4.0 International license, made available on the SOLES Open Educational Resources repository."
+  }
+]
