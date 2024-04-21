@@ -1,0 +1,519 @@
+---
+title: "ENVX2001 Lab - Predictive modelling"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+:::{.callout-tip}
+Please work on this exercise by creating your own R Markdown file.
+:::
+
+## Exercise 1: Backward elimination in R
+
+Data:  *Dippers* spreadsheet
+
+
+
+[Dippers](https://en.wikipedia.org/wiki/Dipper) are thrush-sized birds living mainly in the upper reaches of rivers, which feed on benthic invertebrates by probing the river beds with their beaks. The dataset in this exercise contains data from a biological survey which examined the nature of the variables thought to influence the breeding of British dippers. 
+
+Twenty-two sites were included in the survey. Some of the variables have been transformed. 
+
+The variables measured were:  
+
+- `Altitude` site altitude
+- `Hardness` water hardness
+- `RiverSlope` river-bed slope
+- `LogCadd` the numbers of caddis fly larvae, transformed
+- `LogStone` the numbers of stonefly larvae, transformed
+- `LogMay` the numbers of mayfly larvae, transformed
+- `LogOther` the numbers of all other invertebrates collected, transformed
+- `Br_Dens` the number of breeding pairs of dippers per 10 km of river  
+
+In the analyses, the four invertebrate variables were transformed using a $log(x+1)$ transformation.
+
+```{r readingData}
+library(readxl)
+Dippers <- read_xlsx("mlr.xlsx" , sheet = "Dippers")
+glimpse(Dippers)
+```
+
+You may explore the data on your own (hint: look at last week's exercise on histogram and scatterplot matrices).
+
+When ready, perform a backward elimination starting from the full model: 
+
+```{r}
+#| eval: false
+FullMod <- lm(Br_Dens ~ ., data=Dippers)
+RedMod <- step(FullMod, direction = "backward")
+summary(FullMod)
+summary(RedMod)
+AIC(FullMod, RedMod)
+```
+
+:::{.callout-warning}
+## Question 1
+
+Which model is chosen? Why?
+:::
+
+::: {.content-visible when-profile="solution"}
+## Answer
+
+The reduced model is chosen as it is better and has the lower AIC. In addition, the adjusted *r*^2^ is higher for the reduced model, indicating that the reduced model is a better fit to the data. 
+
+```{r VarSelectSolution, echo = T, eval = T}
+
+FullMod <- lm(Br_Dens ~ ., data=Dippers)
+RedMod <- step(FullMod, direction = "backward", trace = 0) # backward selection
+
+# Plot as table (a good trick for reports!)
+compare <- AIC(FullMod, RedMod) %>% # get AIC data frame
+  # then, add adjusted r-squared values in a new column using `mutate()`
+  mutate(adj_r2 = c(summary(FullMod)$adj.r.squared, summary(RedMod)$adj.r.squared)) %>%
+  # then, round all numeric values to 2 decimal places
+  mutate(across(where(is.numeric), \(x) round(x, 2)))
+
+knitr::kable(compare)
+```
+
+
+```{r}
+summary(FullMod)
+summary(RedMod)
+AIC(FullMod, RedMod)
+```
+
+:::
+
+
+## Exercise 2: Model quality - multiple vs adjusted *r*^2^ 
+
+Data:  *California_streamflow* spreadsheet  
+
+Import the "California_streamflow" sheet into R.
+
+```{r random_number}
+stream <- read_xlsx("mlr.xlsx", "California_streamflow")
+```
+
+in this exercise we will use the same data as last week. To jog your memory, the dataset contains 43 years of annual precipitation measurements (in mm) taken at (originally) 6 sites in the Owens Valley in California. Through model selection via partial F-test we have the final model as below:
+
+```{r}
+fit <- lm(L10BSAAM ~ L10OPRC + L10OBPC, data = stream)
+```
+
+We will now add a totally useless variable to the dataset. This variable is a random number generated from a normal distribution with mean 3 and standard deviation 2. We use the `set.seed()` function to make sure that everybody gets the same random values.
+
+```{r}
+set.seed(100) # to make sure everybody gets the same results
+
+# this generates the random number into the dataset
+stream$random_no <- rnorm(n = nrow(stream), mean = 3, sd = 2) 
+```
+  
+We will see the impact of including a totally useless variable, such as this random variable, has on measures of model quality, *r*^2^ and adjusted *r*^2^ values.
+
+**Task: create two regression models:**
+
+1.  `L10BSAAM ~ L10OPRC + L10OPBC` 
+2.  `L10BSAAM ~ L10OPRC + L10OPBC + random_no`  
+
+:::{.callout-warning}
+## Question 2
+Compare each in terms of their multiple *r*^2^ and adjusted *r*^2^ values. Which performance measure (multiple *r*^2^ or adj *r*^2^) would you use to identify which predictors to use in your model?  
+:::
+
+::: {.content-visible when-profile="solution"}
+## Answer
+
+There is only a small difference in the multiple *r*^2^ and adj *r*^2^ between the models, but one goes up and the other goes down. 
+Since the random number is a totally useless value, this demonstrates that the adjusted *r*^2^ is the better performance measure to use. 
+
+
+```{r randno_solution, eval = T, echo = T}
+mod_rand1 <- lm(L10BSAAM ~ L10OPRC + L10OBPC,data = stream)
+summary(mod_rand1)
+
+mod_rand2 <- lm(L10BSAAM ~ L10OPRC + L10OBPC + random_no ,data = stream)
+summary(mod_rand2)
+```
+
+:::
+
+
+## Exercise 3: Making predictions
+
+Data:  *California_streamflow* spreadsheet
+
+Let's use the same model again. We will import the data once more just in case it has been modified in the previous exercise.
+
+```{r readDataStream}
+# read in the data
+require(readxl)
+stream <- read_xlsx("mlr.xlsx", "California_streamflow")
+# best model
+ML_Mod2 <- lm(L10BSAAM ~ L10OPRC + L10OBPC, data = stream)
+summary(ML_Mod2)
+```
+
+If we wish to predict y for a specific pair of values of $x1$ and $x2$, we can simply substitute these into the fitted model:
+
+$$
+\hat{y} = 3.35762 + 0.44437\times{L10OPRC} + 0.21051\times{L10OBPC}
+$$
+
+For example, if $L10OPRC = 2$ and $L10OBPC = 3$, then $L10BSAAM = \hat{y} = 4.87789$. 
+
+It is also convention to give a standard error (SE) for any prediction. The formula for the SE of a prediction from a 2 predictor linear regression model is complex (see page 215 of Mead et al, 2003). However, in  R it is simple to also return a corresponding SE value using `predict()` and specifying `se.fit=T`. In this case the output will then include an element called "se.fit".
+
+The tricky bit with `predict()` in R is that you need to specify `newdata` (see the help file), which has to be exactly the same structure as the original data. So to repeat the above example in R:
+
+```{r lake_predict}
+# create a new data frame with the variables to predict at
+# Note that it does not matter what you put in for L10BSAAM
+new.df <- data.frame(L10BSAAM = 0, L10OPRC = 2, L10OBPC = 3)
+
+# now use predict() and specify se.fit=T
+predLake <- predict(ML_Mod2, newdata = new.df, se.fit = TRUE)
+
+# the output now has two elements:
+# the fit
+predLake$fit
+# the se of the fit
+predLake$se.fit
+```
+
+This prediction is well within the range original data set.  
+
+:::{.callout-warning}
+## Question 3a
+
+Why would the prediction be witin the range of of the original dataset? You can use `range()` to figure this out, or just look at the original data.  
+:::
+
+
+::: {.content-visible when-profile="solution"}
+
+## Answer
+
+```{asis, echo = T}
+The se.fit is within the range of the response variable
+```
+```{r Lake_predict_fit, echo = T, eval = T}
+predLake$fit
+range(stream$L10BSAAM)
+```
+
+:::
+
+More interesting is making prediction not part of the original data, but as we discussed in the lectures this means there is a different confidence interval. 
+
+R allows you to define the interval using `interval = "prediction"`. The output will then include both the fitted and the prediction confidence interval and the default is to calculate the 95% confidence interval. 
+
+If you want to calculate the actual se.fit from the output, you need to subtract the actual prediction and divide by the t~0.05~ for `df = 40` (which is n - p - 1). 
+
+Create a new data frame with the variables to predict. Note that it again does not matter what you put in for the response (dependent) L10BSAAM, we have put in five 0 values.
+
+```{r newdf}
+new.df <- data.frame(L10OPRC = seq(3.0, 4.0, length = 5),
+                     L10OBPC = seq(3.0, 4.0, length = 5))
+```
+
+
+:::{.callout-warning}
+## Question 3b
+
+Now use `predict()` and specify `interval="prediction"`.  
+
+:::
+
+
+::: {.content-visible when-profile="solution"}
+## Answer
+
+```{r Lake_predict_PI, echo = T, eval = T}
+Lake_predict <- predict(ML_Mod2, newdata=new.df, interval="prediction")
+Lake_predict
+```
+
+:::
+
+Inspect the output; the `lwr` and `upr` columns are the upper and lower prediction intervals. Note that the variation and prediction intervals are fairly small.  
+
+
+
+## Exercise 4: Validation and model prediction quality
+
+Data:  *California Streamflow* spreadsheet  
+
+In this exercise we will test the quality of the developed model, but doing it formally using a comparison on a validation data set.
+
+We have to once again `set.seed()` to make sure your results are the same across the class.
+
+The first step is to sample 20% of the data as a validation data set from the overall data set. We are doing this by using the function `sample()` to pick a random number of rows. We can use `dim()` to check the dimensions of the datasets.     
+
+```{r sampledata}
+#Only use so we are all get same random numbers - 
+# otherwise R uses computer time to get random number
+set.seed(10)
+
+#Sample 20% of the rows, find row numbers
+index <- sample(1:nrow(stream), size = 0.20*nrow(stream))
+#Split data
+valid <- stream[index,]
+dim(valid)
+calib <- stream[-index,]
+dim(calib)
+```
+
+Rather than rerunning the calibration we are going to reuse the two models from last week with different data and compare the results. We will use the model with 2 variables and the model with 3 variables.  
+
+```{r DefineModels}
+# use model 2 and model 3 from topic 7/8 practical (last week)
+# and test which one is the best model, but use calib data
+ML_Mod2 <- lm(L10BSAAM ~ L10OPRC + L10OBPC, data = calib)
+ML_Mod3 <- lm(L10BSAAM ~ L10OPRC + L10OBPC + L10APSAB, data = calib)
+
+# compare the models
+summary(ML_Mod2)
+summary(ML_Mod3)
+```
+
+Based on the results, ML_Mod3 is better based on a slightly better adj *r*^2^. Because the difference is so slight, should do a more thorough investigation which model is better.
+
+You might want to check the residual plots of the predictions. Do you observe anything suspicious?  
+
+```{r ResidualMod2, fig.cap="Residual plots for Model with 2 parameters"}
+par(mfrow=c(2,2))
+plot(ML_Mod2)
+par(mfrow=c(1,1))
+```
+```{r ResidualMod3, fig.cap="Residual plots for Model with 3 parameters"}
+par(mfrow=c(2,2))
+plot(ML_Mod3)
+par(mfrow=c(1,1))
+
+```
+
+:::{.callout-warning}
+## Question 4
+Accuracy: check RMSE and bias of the calibrated models: 
+
+Use the equation for RMSE: 
+
+$$ RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2} $$
+and for bias (Mean Error):
+
+$$ ME = \frac{1}{n}\sum_{i=1}^{n}y_i - \hat{y}_i $$
+
+Check both the models and for both calibration and validation. To derive the validation data, use (for example for Model 2):
+
+```{r validExample}
+predict(ML_Mod2, newdata = valid)
+```
+
+:::
+
+::: {.content-visible when-profile="solution"}
+## Answer
+
+```{asis, echo = T}
+**ANSWER**
+  
+Bias and RMSE are low and seem to be more optimal for ML_Mod3
+```
+```{r accuracySolution, eval=T, echo=T}
+# Accuracy (RMSE)
+# Calibrations
+(RMSE2 <- sqrt(mean((calib$L10BSAAM - predict(ML_Mod2))^2)))
+(RMSE3 <- sqrt(mean((calib$L10BSAAM - predict(ML_Mod3))^2)))
+
+# now validations
+(RMSE2_valid <- sqrt(mean((valid$L10BSAAM - predict(ML_Mod2, newdata = valid))^2)))
+(RMSE3_valid <- sqrt(mean((valid$L10BSAAM - predict(ML_Mod3, newdata = valid))^2)))
+
+#Bias
+(Bias2 <- mean(calib$L10BSAAM - predict(ML_Mod2)))
+(Bias3 <- mean(calib$L10BSAAM - predict(ML_Mod3)))
+# very small, as they should be!
+
+(Bias2_valid <- mean(valid$L10BSAAM - predict(ML_Mod2, newdata = valid)))
+(Bias3_valid <- mean(valid$L10BSAAM - predict(ML_Mod3, newdata = valid)))
+
+```
+
+:::
+
+We can subsequently make a plot of the calibration and validation data sets for both observed data and the predicted data and compare to the 1:1 line.
+
+```{r PlotObsPred, fig.cap = "Plots of predicted versus observed for model with 2 predictors (top) and model with 3 predictors (bottom)", fig.height = 9, fig.width = 5}
+
+# plot predicted versus observed
+par(mfrow = c(2,1), mar=c(4,4,3,2))
+
+# model 2
+plot(calib$L10BSAAM, predict(ML_Mod2), 
+     # colour = red, type = "16" and size is 20% larger
+     pch = 16, col = "blue", cex = 1.2,
+     # add titles for axes and main
+     xlab = "Observed dataset", ylab = "Predicted",
+     main="model 2 predictors")
+# insert a 1:1 line, dashed line, width = 2
+abline(0, 1, lty = 2, lwd = 2)
+
+# add the validation data
+points(valid$L10BSAAM, predict(ML_Mod2, newdata = valid), 
+       # colour = blue, type = "16" and size is 20% larger
+       col = "red", pch = 16, cex = 1.2)
+# add a legend to the first plot
+legend("topleft", c("calibration", "validation", "1 : 1 line"), 
+       pch = c(16, 16, NA), lty = c(NA, NA, 2), col = c("blue", "red", 1),
+       # 20% smaller
+       cex=0.8)
+
+# model 3
+plot(calib$L10BSAAM, predict(ML_Mod3), 
+     # colour = red, type = "16" and size is 20% larger
+     pch = 16, col = "blue", cex = 1.2,
+     # add titles for axes and main
+     xlab = "Observed dataset", ylab = "Predicted",
+     main="model 3 predictors")
+# insert a 1:1 line, dashed line, width = 2
+abline(0, 1, lty = 2, lwd = 2)
+# add the validation data
+points(valid$L10BSAAM, predict(ML_Mod3, newdata = valid), 
+       # colour = blue, type = "16" and size is 20% larger
+       col = "red", pch = 16, cex = 1.2)
+```
+
+This gives the opportunity for a visual inspection, but we can also calculate the correlation (to echo the model derivation) for the calibration and validation data sets. You can also calculate the multiple r^2^ by squaring the correlation coefficient. In this case the multiple r^2^ is ok to use as we are using it to assess prediction quality rather than the initial model fit.  
+
+:::{.callout-warning}
+## Question 4b
+
+Calculate correlation using and r^2^ using `cor()`
+
+:::
+
+
+::: {.content-visible when-profile="solution"}
+
+## Answer
+
+```{r correlation, eval = T, echo = T}
+#Correlation
+cor(calib$L10BSAAM, predict(ML_Mod2))
+cor(calib$L10BSAAM, predict(ML_Mod3))
+# we already know this from summary()
+
+cor(valid$L10BSAAM, predict(ML_Mod2, newdata = valid))
+cor(valid$L10BSAAM, predict(ML_Mod3, newdata = valid))
+# confirms bias and RMSE calculations
+
+# r2
+(cor(calib$L10BSAAM, predict(ML_Mod2))^2)
+(cor(calib$L10BSAAM, predict(ML_Mod3))^2)
+
+(cor(valid$L10BSAAM, predict(ML_Mod2, newdata = valid)))^2
+(cor(valid$L10BSAAM, predict(ML_Mod3, newdata = valid)))^2
+```
+
+:::
+
+:::{.callout-warning}
+## Question 4c
+
+Now have a go at calculating Lin's concordance correlation coefficient, using the lecture slides. 
+
+Don't forget to call `library(epiR)` and maybe `install.packages("epiR")` if the package is not installed.
+
+:::
+
+::: {.content-visible when-profile="solution"}
+
+## Answer
+
+```{r LinsConcord, echo = T, eval = T, warnings = FALSE}
+#if needed
+#install.packages("epiR")
+library(epiR, quietly = TRUE)
+
+calib.lcc<-epi.ccc(calib$L10BSAAM, predict(ML_Mod2))
+calib.lcc$rho.c
+valid.lcc<-epi.ccc(valid$L10BSAAM, predict(ML_Mod2, newdata = valid))
+valid.lcc$rho.c
+
+calib.lcc<-epi.ccc(calib$L10BSAAM, predict(ML_Mod3))
+calib.lcc$rho.c
+valid.lcc<-epi.ccc(valid$L10BSAAM, predict(ML_Mod3, newdata = valid))
+valid.lcc$rho.c
+
+```
+
+:::
+
+
+:::{.callout-warning}
+## Question 4d
+
+Draw conclusions about which model is the best model to predict L10BSAAM from the other variables, use the results to support your argument.
+:::
+
+::: {.content-visible when-profile="solution"}
+## Answer
+
+```{asis, echo = T}
+
+Here we are looking for a summary of your findings. We would say something like:
+
+Evident from a slightly higher adjusted *r*^2^ (*r*^2^-adj = 0.878 for ML_Mod2, 0.880 for ML_Mod3), ML_Mod3 is a more suitable model to predict variable stream runoff volume at the selected site near Bishop, California (L10BSAAM; measured in ML/year). 
+
+To support our conclusion, we investigated further by comparing accuracy between the two models, in terms of RMSE, Bias, and LCCC. Bias and RMSE are low and seem to be more optimal for ML_Mod3 (Bias = -0.037 ML/year and RMSE = 0.047 ML/year). Furthermore, the LCCC is higher/closer to 1 for ML_Mod3 compared to ML_Mod2 (LCCC = 0.873, LCCC = 0.862, for ML_Mod3 and ML_Mod2, respectively). 
+
+**Note:** 
+1. Bias and RMSE are in the same units as the response variable, so we provide units when reporting the values.
+2. We have mainly reported the validation statistics in the summary; however we still need calibration statistics so we can compare the two (e.g. RMSE from calib vs RMSE from valid) and assess how well the model predicts, and identify whether there is overfitting. If the model is overfitting, we would see a difference between the model fit statistics between calib and valid datasets. In general, model fit will usually be lower in the predictions. 
+
+**Model 2: L10BSAAM ~ L10OPRC + L10OBPC**
+
+Model fit :
+
+Bias (calib) = 5.075315e-16
+
+Bias (valid) = -0.0346165
+
+RMSE (calib) = 0.0479611
+
+RMSE(valid) = 0.04899388
+
+Calib LCCC= 0.9390808
+
+Valid LCCC = 0.8620478	
+
+**Model 3:L10BSAAM ~ L10OPRC + L10OBPC + L10APSAB**
+
+Model fit:
+  
+Bias (calib) = -4.060266e-16
+
+Bias (valid) = -0.03694093
+
+RMSE (calib) = 0.04677635
+
+RMSE(valid) = 0.04734575
+
+Calib LCCC = 0.9422251
+
+Valid LCCC = 0.8732522
+
+```
+:::
+
+
+<hr>
+
+That's it for today! Great work fitting multiple linear regression and trying your hand at some predictive modelling! Next week we jump into stepwise selection and predictive modelling! 
+

@@ -11,7 +11,7 @@ date-format: "[Semester 1,] YYYY"
 
 format:
   soles-assignment-html:
-    embed-resources: false
+    embed-resources: true
     title-block-banner: "#FCEDE2"
     title-block-banner-color: "#000"
     reference-location: margin
@@ -27,5 +27,4 @@ execute:
 
 profile:
   default: 
-    # - exercise
-    - solution
+    - exercise

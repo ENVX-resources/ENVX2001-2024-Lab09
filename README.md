@@ -2,11 +2,11 @@
 
 ## ENVX2001: Applied Statistical Methods
 
-### Lab 01
+### Lab 09
 
 Semester 1, 2024
 
-[![status - In Development](https://img.shields.io/badge/status-In_Development-critical?style=for-the-badge)](#)
+[![status - Ready](https://img.shields.io/badge/status-In_Development-critical?style=for-the-badge)](#)
 
 <!-- Use this badge to let students know that the resource is ready. -->
 <!-- [![status - Ready](https://img.shields.io/badge/status-Ready-success?style=for-the-badge)](#) -->
